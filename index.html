@@ -66,44 +66,10 @@
       border-right-width: clamp(0px, 1vw, 4px);
     }
 
-    .marquee-header {
-      background: var(--accent-yellow);
-      color: var(--ink-black);
-      font-family: var(--font-pixel);
-      font-weight: 400;
-      font-size: 1.1rem;
-      padding: 8px 0;
-      border-bottom: 4px solid var(--ink-black);
-      overflow: hidden;
-      white-space: nowrap;
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 480px;
-      z-index: 100;
-    }
-
-    .marquee-content {
-      display: inline-block;
-      animation: marquee 15s linear infinite;
-    }
-
-    @keyframes marquee {
-      0% {
-        transform: translateX(100%);
-      }
-
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
     .screen {
       display: none;
       flex-direction: column;
-      padding: 70px 5vw 40px 5vw;
+      padding: 40px 5vw 40px 5vw;
       flex-grow: 1;
       position: relative;
       align-items: center;
@@ -430,12 +396,6 @@
 <body>
 
   <div id="app">
-    <div class="marquee-header">
-      <div class="marquee-content">
-        ★☆★ YOUR REAL SELF 2026 ★☆★ KNOW YOUR TYPE ★☆★ VIBES CHECK ★☆★
-      </div>
-    </div>
-
     <div id="start-screen" class="screen active">
       <div class="title-badge stagger">性格14タイプ診断</div>
       <h1 class="main-title stagger">フォーユー診断</h1>
