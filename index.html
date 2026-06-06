@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>🌟 新・フォーユー診断 🌟</title>
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Kiwi+Maru:wght@500;800&display=swap"
     rel="stylesheet">
@@ -30,6 +30,9 @@
       /* Chunky Shadows */
       --pop-shadow: 4px 4px 0px var(--ink-black);
       --pop-shadow-active: 0px 0px 0px var(--ink-black);
+      --screen-x: clamp(18px, 5vw, 40px);
+      --screen-y: clamp(24px, 6dvh, 48px);
+      --app-max-width: 520px;
     }
 
     * {
@@ -46,7 +49,9 @@
       display: flex;
       justify-content: center;
       min-height: 100vh;
+      min-height: 100dvh;
       overflow-x: hidden;
+      overscroll-behavior-y: none;
       background-image: radial-gradient(var(--ink-black) 2px, transparent 2px);
       background-size: 20px 20px;
       font-family: var(--font-round);
@@ -54,7 +59,7 @@
 
     #app {
       width: 100%;
-      max-width: 480px;
+      max-width: var(--app-max-width);
       background: var(--bg-base);
       border-left: 4px solid var(--ink-black);
       border-right: 4px solid var(--ink-black);
@@ -62,6 +67,7 @@
       flex-direction: column;
       position: relative;
       min-height: 100vh;
+      min-height: 100dvh;
       border-left-width: clamp(0px, 1vw, 4px);
       border-right-width: clamp(0px, 1vw, 4px);
     }
@@ -69,7 +75,7 @@
     .screen {
       display: none;
       flex-direction: column;
-      padding: 40px 5vw 40px 5vw;
+      padding: calc(var(--screen-y) + env(safe-area-inset-top)) var(--screen-x) calc(var(--screen-y) + env(safe-area-inset-bottom));
       flex-grow: 1;
       position: relative;
       align-items: center;
@@ -111,7 +117,7 @@
       border-radius: 20px;
       font-size: clamp(1rem, 4vw, 1.2rem);
       transform: rotate(-5deg);
-      margin-bottom: 15px;
+      margin-bottom: clamp(10px, 3dvh, 15px);
       box-shadow: var(--pop-shadow);
     }
 
@@ -120,7 +126,7 @@
       font-size: clamp(2.5rem, 11vw, 3.8rem);
       line-height: 1.1;
       font-weight: 800;
-      margin: 0 0 20px 0;
+      margin: 0 0 clamp(14px, 3dvh, 20px) 0;
       text-align: center;
       color: #fff;
       -webkit-text-stroke: clamp(2px, 0.8vw, 3px) var(--ink-black);
@@ -130,7 +136,7 @@
 
     .hero-image-placeholder {
       font-size: clamp(4rem, 15vw, 5rem);
-      margin: 10px 0 20px 0;
+      margin: clamp(6px, 2dvh, 10px) 0 clamp(14px, 3dvh, 20px) 0;
       animation: float 3s ease-in-out infinite;
     }
 
@@ -142,7 +148,7 @@
       border: 3px solid #fff;
       padding: 10px 15px;
       border-radius: 10px;
-      margin-bottom: 25px;
+      margin-bottom: clamp(16px, 3.5dvh, 25px);
       text-align: center;
       font-size: clamp(0.85rem, 3.5vw, 0.95rem);
       transform: rotate(-1deg);
@@ -160,7 +166,7 @@
       box-shadow: 0px 8px 0px var(--ink-black);
       transition: all 0.1s;
       margin-top: auto;
-      margin-bottom: 20px;
+      margin-bottom: max(16px, env(safe-area-inset-bottom));
       width: 100%;
       max-width: 320px;
     }
@@ -176,7 +182,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 15px;
+      margin-bottom: clamp(12px, 2.5dvh, 18px);
     }
 
     .progress-bar-pop {
@@ -217,7 +223,7 @@
       border: 2px solid var(--ink-black);
       border-radius: 10px;
       padding: 5px 10px;
-      margin-bottom: 15px;
+      margin-bottom: clamp(10px, 2dvh, 15px);
       cursor: pointer;
       box-shadow: 2px 2px 0px var(--ink-black);
       visibility: hidden;
@@ -237,12 +243,12 @@
       border: 4px solid var(--ink-black);
       border-radius: 20px;
       background: var(--card-bg);
-      padding: clamp(20px, 6vw, 30px) 20px;
+      padding: clamp(18px, 5vw, 30px) clamp(16px, 5vw, 24px);
       box-shadow: var(--pop-shadow);
-      margin-bottom: 30px;
+      margin-bottom: clamp(18px, 4dvh, 30px);
       width: 100%;
       text-align: center;
-      min-height: 150px;
+      min-height: clamp(128px, 24dvh, 170px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -252,7 +258,7 @@
     .answers {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: clamp(10px, 2dvh, 14px);
       width: 100%;
     }
 
@@ -264,7 +270,8 @@
       border: 3px solid var(--ink-black);
       border-radius: 15px;
       color: var(--ink-black);
-      padding: clamp(12px, 4vw, 15px);
+      padding: clamp(13px, 3.6vw, 16px) clamp(12px, 4vw, 18px);
+      min-height: 54px;
       text-align: center;
       cursor: pointer;
       box-shadow: 4px 4px 0px var(--ink-black);
@@ -295,7 +302,7 @@
 
     /* --- 結果画面 --- */
     #result-screen {
-      padding-top: 50px;
+      padding-top: calc(clamp(28px, 6dvh, 50px) + env(safe-area-inset-top));
       justify-content: center;
     }
 
@@ -308,8 +315,8 @@
       border: 4px solid var(--ink-black);
       border-radius: 20px;
       background: var(--card-bg);
-      padding: 30px 5vw;
-      margin-bottom: 25px;
+      padding: clamp(22px, 6vw, 34px) clamp(18px, 6vw, 32px);
+      margin-bottom: clamp(16px, 3.5dvh, 25px);
       position: relative;
       box-shadow: var(--pop-shadow);
       width: 100%;
@@ -356,10 +363,133 @@
       background: var(--bg-base);
       border: 3px solid var(--ink-black);
       border-radius: 15px;
-      padding: 10px 20px;
+      padding: clamp(10px, 3vw, 14px) clamp(16px, 5vw, 22px);
       box-shadow: 2px 2px 0px var(--ink-black);
       transform: rotate(1deg);
       color: var(--ink-black);
+    }
+
+
+
+    .start-tip {
+      font-family: var(--font-round);
+      font-weight: 800;
+      background: var(--card-bg);
+      border: 3px solid var(--ink-black);
+      padding: clamp(10px, 3vw, 14px) clamp(14px, 4vw, 18px);
+      border-radius: 15px;
+      box-shadow: var(--pop-shadow);
+      margin-bottom: clamp(18px, 5dvh, 30px);
+      text-align: center;
+      font-size: clamp(0.9rem, 3.6vw, 1rem);
+      width: min(100%, 360px);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .btn-pop:hover:not(:active),
+      .answer-btn:hover:not(:active),
+      .btn-back:hover:not(:active) {
+        transform: translate(-1px, -1px);
+        box-shadow: 5px 5px 0px var(--ink-black);
+      }
+
+      .btn-pop:hover:not(:active) {
+        box-shadow: 0px 9px 0px var(--ink-black);
+      }
+    }
+
+    @media (max-width: 380px) {
+      :root {
+        --screen-x: 16px;
+        --screen-y: 20px;
+        --pop-shadow: 3px 3px 0px var(--ink-black);
+      }
+
+      .main-title {
+        font-size: clamp(2.2rem, 12vw, 2.8rem);
+        text-shadow: 3px 3px 0px var(--accent-purple);
+      }
+
+      .title-badge,
+      .q-counter,
+      .btn-pop,
+      .question-card,
+      .answer-btn,
+      .sticker-card {
+        border-width: 3px;
+      }
+
+      .answer-btn {
+        min-height: 50px;
+      }
+    }
+
+    @media (max-height: 700px) and (max-width: 600px) {
+      :root {
+        --screen-y: 16px;
+      }
+
+      .hero-image-placeholder {
+        font-size: clamp(3rem, 12dvh, 4rem);
+      }
+
+      .adult-notice,
+      .start-tip {
+        margin-bottom: 14px;
+      }
+
+      .question-card {
+        min-height: 112px;
+        line-height: 1.45;
+      }
+
+      .answer-btn {
+        min-height: 48px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      :root {
+        --app-max-width: 560px;
+        --screen-x: 42px;
+        --screen-y: 48px;
+        --pop-shadow: 5px 5px 0px var(--ink-black);
+      }
+
+      body {
+        align-items: center;
+        padding: 28px;
+      }
+
+      #app {
+        min-height: min(860px, calc(100dvh - 56px));
+        border: 4px solid var(--ink-black);
+        border-radius: 28px;
+        box-shadow: 12px 12px 0px rgba(17, 17, 17, 0.2);
+        overflow: hidden;
+      }
+
+      .screen {
+        justify-content: center;
+      }
+
+      #question-screen.screen {
+        justify-content: flex-start;
+      }
+
+      .question-card {
+        font-size: 1.32rem;
+      }
+
+      .answer-btn {
+        font-size: 1.08rem;
+      }
+
+      #start-screen .btn-pop {
+        margin-top: 12px;
+      }
     }
 
     @keyframes bounceIn {
@@ -406,8 +536,7 @@
         ⚠️ 大人の人は<br>中学生くらいの自分の性格で回答してね！
       </div>
 
-      <div class="stagger"
-        style="font-family: var(--font-round); font-weight: 800; background: var(--card-bg); border: 3px solid var(--ink-black); padding: 10px 15px; border-radius: 15px; box-shadow: var(--pop-shadow); margin-bottom: 30px; text-align: center; font-size: clamp(0.9rem, 4vw, 1rem);">
+      <div class="stagger start-tip">
         「どちらでもない」は禁止！<br>直感でバシバシ答えてね👆
       </div>
 
