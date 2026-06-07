@@ -20,6 +20,9 @@
       --accent-green: #00E676;
       --accent-purple: #D500F9;
       --accent-red: #FF3D00;
+      --accent-yellow-soft: #FFF59D;
+      --accent-green-soft: #B9F6CA;
+      --accent-red-soft: #FFAB91;
 
       /* 動的テーマカラー */
       --theme-color: var(--accent-pink);
@@ -374,10 +377,10 @@
       position: relative;
       overflow: hidden;
       background: var(--card-bg);
-      border: 4px solid var(--ink-black);
+      border: 2px solid var(--ink-black);
       border-radius: 18px;
-      box-shadow: var(--pop-shadow);
-      padding: 16px 14px 14px;
+      box-shadow: 3px 3px 0 var(--ink-black);
+      padding: 14px;
       transform: rotate(-1deg);
     }
 
@@ -385,9 +388,9 @@
       content: "";
       position: absolute;
       inset: 0 0 auto;
-      height: 10px;
-      background: var(--ink-black);
-      border-bottom: 3px solid var(--ink-black);
+      height: 6px;
+      background: var(--accent-yellow-soft);
+      border-bottom: 2px solid var(--ink-black);
     }
 
     .sticker-card:nth-child(even) {
@@ -400,24 +403,24 @@
       z-index: 1;
       font-family: var(--font-pixel);
       font-weight: 800;
-      background: var(--ink-black);
-      color: #fff;
-      border: 3px solid var(--ink-black);
+      background: var(--card-bg);
+      color: var(--ink-black);
+      border: 2px solid var(--ink-black);
       border-radius: 999px;
       padding: 4px 12px;
       margin-bottom: 10px;
-      box-shadow: 2px 2px 0 var(--accent-yellow);
+      box-shadow: 1px 1px 0 var(--accent-yellow);
     }
 
     .status-lines {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      background: var(--accent-yellow);
+      background: var(--accent-yellow-soft);
       color: var(--ink-black);
-      border: 3px solid var(--ink-black);
+      border: 2px solid var(--ink-black);
       border-radius: 12px;
-      box-shadow: 2px 2px 0 var(--ink-black);
+      box-shadow: 1px 1px 0 var(--ink-black);
       padding: 10px;
     }
 
@@ -433,7 +436,7 @@
     }
 
     .status-sub {
-      border-top: 2px dashed var(--ink-black);
+      border-top: 1px dashed var(--ink-black);
       padding-top: 8px;
     }
 
@@ -447,16 +450,16 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--accent-green);
+      background: var(--accent-green-soft);
       color: var(--ink-black);
-      border: 2px solid var(--ink-black);
+      border: 1px solid var(--ink-black);
       border-radius: 999px;
       padding: 6px 10px;
       font-family: var(--font-pixel);
       font-weight: 800;
       font-size: clamp(0.9rem, 3.6vw, 1rem);
       line-height: 1.2;
-      box-shadow: 2px 2px 0 var(--ink-black);
+      box-shadow: 1px 1px 0 var(--ink-black);
     }
 
     .weakness-card {
@@ -464,12 +467,12 @@
     }
 
     .weakness-text {
-      border: 3px solid var(--ink-black);
+      border: 2px solid var(--ink-black);
       border-radius: 12px;
-      background: var(--accent-red);
-      color: #fff;
+      background: var(--accent-red-soft);
+      color: var(--ink-black);
       padding: 10px;
-      box-shadow: 2px 2px 0 var(--ink-black);
+      box-shadow: 1px 1px 0 var(--ink-black);
     }
 
     .share-buttons {
