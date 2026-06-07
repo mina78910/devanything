@@ -170,6 +170,12 @@
       box-shadow: 0px 0px 0px var(--ink-black);
     }
 
+    .btn-pop-link {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+    }
+
     /* --- 設問画面 --- */
     .progress-container {
       width: 100%;
@@ -741,10 +747,12 @@
         </div>
       </div>
 
-      <button class="btn-pop stagger" onclick="restartQuiz()" style="margin-top: 30px; font-size: 1rem;">もう一度診断する</button>
+      <button class="btn-pop stagger" onclick="restartQuiz()" style="margin-top: 30px; margin-bottom: 16px; font-size: 1rem;">もう一度診断する</button>
+      <a class="btn-pop btn-pop-link stagger" href="types.html" style="margin-top: 0; font-size: 1rem;">14タイプ一覧を見る</a>
     </div>
   </div>
 
+  <script src="type-data.js"></script>
   <script>
     // 判定用設問リスト（各タイプ5問ずつ・重要質問フラグ付き）
     const questions = [
@@ -769,136 +777,6 @@
         { text: "テストの点数や係の仕事を頑張ったときは、先生や親から褒められたい？", type: "S" },
         { text: "嬉しいときや悲しいときに、顔や態度に感情を出すのが苦手？", type: "A" }
     ];
-
-    // 14分類の定義データ
-    const typeDict = {
-        "C-C": {
-            name: "フルスロットル",
-            core: "突破・勝負・アクセル",
-            status: ["勝負こそ燃料", "全速力で壁をぶち抜く"],
-            strengths: ["突破力", "勝負勘", "行動スピード"],
-            weakness: "止まって考える時間が長いとイライラ。強く言いすぎて周りがびっくりすることも。",
-            hex: "#FF3D00",
-            image: "14_character_pngs/01_C-C.png"
-        },
-        "C-P": {
-            name: "ブースター",
-            core: "熱量で引っ張る",
-            status: ["熱量がエンジン", "勢いと明るさでみんなを加速"],
-            strengths: ["巻き込み力", "瞬発力", "場の点火"],
-            weakness: "盛り上がるほど細かい確認を忘れがち。テンション任せで突っ走りすぎ注意。",
-            hex: "#FF9100",
-            image: "14_character_pngs/02_C-P.png"
-        },
-        "C-A": {
-            name: "裏参謀",
-            core: "冷静に勝つ",
-            status: ["勝ち筋を読む策士", "熱い闘志をクールに運用"],
-            strengths: ["分析力", "作戦設計", "冷静な判断"],
-            weakness: "頭の中で勝ち筋が見えすぎて、説明が短くなりがち。怖く見られる時も。",
-            hex: "#00B0FF",
-            image: "14_character_pngs/03_C-A.png"
-        },
-        "P-C": {
-            name: "熱血マン",
-            core: "主役感＋突破",
-            status: ["主役スイッチ常時ON", "熱い言葉で前線をこじ開ける"],
-            strengths: ["リーダー感", "情熱表現", "突破の号令"],
-            weakness: "注目されない・勢いを止められる場面が苦手。空回りすると熱量が圧になることも。",
-            hex: "#FFD600",
-            image: "14_character_pngs/04_P-C.png"
-        },
-        "P-P": {
-            name: "ハイテンション",
-            core: "楽しい・目立つ",
-            status: ["楽しいが正義", "感情全開で共鳴拡散"],
-            strengths: ["ムード形成", "共感力", "元気供給"],
-            weakness: "退屈・無反応・ノリの悪さに弱め。集中が切れると一気に電池切れ。",
-            hex: "#F50057",
-            image: "14_character_pngs/05_P-P.png"
-        },
-        "P-S": {
-            name: "フレンドメーカー",
-            core: "みんなで楽しく",
-            status: ["仲良し空間クリエイター", "楽しい輪を広げて安心も配る"],
-            strengths: ["友達づくり", "空気ほぐし", "ポジティブ配慮"],
-            weakness: "みんなに合わせすぎて自分の本音が後回しに。輪から外れる空気にかなり敏感。",
-            hex: "#FF4081",
-            image: "14_character_pngs/06_P-S.png"
-        },
-        "S-P": {
-            name: "応援団",
-            core: "優しさ＋社交性",
-            status: ["応援で世界を明るく", "人の良さを見つけて全力プッシュ"],
-            strengths: ["励まし力", "親しみやすさ", "共感サポート"],
-            weakness: "感謝や反応がないとしょんぼり。人の気持ちを背負いすぎて疲れることも。",
-            hex: "#FF80AB",
-            image: "14_character_pngs/07_S-P.png"
-        },
-        "S-S": {
-            name: "安心基地",
-            core: "安心・癒し",
-            status: ["安心が最強装備", "そばにいるだけで場をゆるめる"],
-            strengths: ["癒し力", "聞く力", "安定感"],
-            weakness: "急な変化や強い対立が苦手。頼られすぎると自分の疲れに気づきにくい。",
-            hex: "#00E676",
-            image: "14_character_pngs/08_S-S.png"
-        },
-        "S-A": {
-            name: "黒子役",
-            core: "静かな支援",
-            status: ["見えない所で支える職人", "静かに整えてチームを守る"],
-            strengths: ["気配り", "裏方力", "継続サポート"],
-            weakness: "自分の頑張りを言葉にするのが苦手。気づかれないまま抱え込みやすい。",
-            hex: "#76FF03",
-            image: "14_character_pngs/09_S-A.png"
-        },
-        "A-C": {
-            name: "司令塔",
-            core: "論理で勝つ",
-            status: ["論理で盤面制圧", "冷静な指示で勝ちに導く"],
-            strengths: ["戦略思考", "判断基準", "全体設計"],
-            weakness: "非効率や曖昧な指示に弱い。正しさを優先しすぎると冷たく見えることも。",
-            hex: "#2979FF",
-            image: "14_character_pngs/10_A-C.png"
-        },
-        "A-S": {
-            name: "バランサー",
-            core: "理解したい・整合性を保ちたい",
-            status: ["整理して配慮", "静かに関係を保つ"],
-            strengths: ["静かな助言", "安定維持"],
-            weakness: "感情表現不足・距離感に注意。感情圧力・強制同調が地雷になりやすい。",
-            hex: "#00E5FF",
-            image: "14_character_pngs/11_A-S.png"
-        },
-        "A-A": {
-            name: "インテリ",
-            core: "分析・探究",
-            status: ["納得こそ安心", "情報を集めて深く掘り進む"],
-            strengths: ["探究心", "観察力", "論理整理"],
-            weakness: "雑な説明や根拠なしのノリが苦手。考えすぎて動き出しが遅れる時も。",
-            hex: "#651FFF",
-            image: "14_character_pngs/12_A-A.png"
-        },
-        "C-S": {
-            name: "仲間番長",
-            core: "優しさ＋闘志",
-            status: ["仲間を守る番長気質", "優しさを武器に本気で立ち向かう"],
-            strengths: ["仲間思い", "守る力", "熱い責任感"],
-            weakness: "大事な人のために無理をしがち。敵味方を分けすぎると頑固モードに。",
-            hex: "#00BFA5",
-            image: "14_character_pngs/13_S-C.png"
-        },
-        "P-A": {
-            name: "妄想族",
-            core: "感性×発想×探究",
-            status: ["ひらめき探究オタク", "妄想と分析で新世界をつくる"],
-            strengths: ["発想力", "世界観づくり", "深掘り力"],
-            weakness: "興味がないことや現実的すぎる制約が苦手。頭の中が広がりすぎて説明が迷子に。",
-            hex: "#D500F9",
-            image: "14_character_pngs/14_A-P.png"
-        }
-    };
 
     let currentQ = 0;
     let answersArray = [];
@@ -990,10 +868,7 @@
         let secondary = types[1] || primary;
         let diff = scores[primary] - scores[secondary];
 
-        const predefinedTypes = [
-            'C-C', 'C-P', 'C-A', 'P-C', 'P-P', 'P-S', 'S-P',
-            'S-S', 'S-A', 'A-C', 'A-S', 'A-A', 'C-S', 'P-A'
-        ];
+        const predefinedTypes = typeOrder;
 
         let finalTypeKey = '';
 
