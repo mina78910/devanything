@@ -19,6 +19,7 @@
       --accent-yellow: #FFEA00;
       --accent-green: #00E676;
       --accent-purple: #D500F9;
+      --accent-red: #FF3D00;
 
       /* 動的テーマカラー */
       --theme-color: var(--accent-pink);
@@ -393,14 +394,6 @@
       transform: rotate(1deg);
     }
 
-    .sticker-card:nth-child(2)::before {
-      background: var(--accent-green);
-    }
-
-    .sticker-card:nth-child(3)::before {
-      background: var(--accent-pink);
-    }
-
     .sticker-title {
       display: inline-block;
       position: relative;
@@ -416,21 +409,16 @@
       box-shadow: 2px 2px 0 var(--ink-black);
     }
 
-    .sticker-card:nth-child(2) .sticker-title,
-    .tag-pop {
-      background: var(--accent-green);
-      color: var(--ink-black);
-    }
-
-    .sticker-card:nth-child(3) .sticker-title {
-      background: var(--accent-pink);
-      color: #fff;
-    }
-
     .status-lines {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      background: var(--accent-yellow);
+      color: var(--ink-black);
+      border: 3px solid var(--ink-black);
+      border-radius: 12px;
+      box-shadow: 2px 2px 0 var(--ink-black);
+      padding: 10px;
     }
 
     .res-text-content {
@@ -441,15 +429,6 @@
     }
 
     .status-main {
-      display: inline-block;
-      width: fit-content;
-      max-width: 100%;
-      background: var(--accent-yellow);
-      color: var(--ink-black);
-      border: 2px solid var(--ink-black);
-      border-radius: 12px;
-      box-shadow: 2px 2px 0 var(--ink-black);
-      padding: 4px 8px;
       font-size: clamp(1.12rem, 5vw, 1.28rem);
     }
 
@@ -468,6 +447,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      background: var(--accent-green);
+      color: var(--ink-black);
       border: 2px solid var(--ink-black);
       border-radius: 999px;
       padding: 6px 10px;
@@ -478,15 +459,6 @@
       box-shadow: 2px 2px 0 var(--ink-black);
     }
 
-    .tag-pop:nth-child(even) {
-      background: var(--accent-yellow);
-    }
-
-    .tag-pop:nth-child(3n) {
-      background: var(--accent-pink);
-      color: #fff;
-    }
-
     .weakness-card {
       background: var(--card-bg);
     }
@@ -494,8 +466,8 @@
     .weakness-text {
       border: 3px solid var(--ink-black);
       border-radius: 12px;
-      background: var(--accent-yellow);
-      color: var(--ink-black);
+      background: var(--accent-red);
+      color: #fff;
       padding: 10px;
       box-shadow: 2px 2px 0 var(--ink-black);
     }
