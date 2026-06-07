@@ -410,6 +410,7 @@
     const TYPE_IMAGE_LOAD_STAGGER_MS = 35;
     const TYPE_IMAGE_MAX_CONCURRENT_LOADS = 2;
     const PRIORITY_IMAGE_COUNT = 3;
+    const TYPE_IMAGE_LOAD_TIMEOUT_MS = 8000;
 
     function loadTypeImagesInOrder() {
       const images = Array.from(document.querySelectorAll('.type-image[data-src]'));
@@ -448,38 +449,43 @@
           image.fetchPriority = 'high';
         }
 
-        const finish = () => {
-          image.classList.add('is-loaded');
-          image.removeAttribute('data-src');
+        let isSettled = false;
+        let canStartNext = false;
+
+        const settleQueue = () => {
+          if (canStartNext) {
+            return;
+          }
+          canStartNext = true;
           resolve();
         };
+
+        const finish = () => {
+          if (isSettled) {
+            return;
+          }
+          isSettled = true;
+          clearTimeout(timeoutId);
+          image.removeEventListener('load', finish);
+          image.removeEventListener('error', finish);
+          image.classList.add('is-loaded');
+          image.removeAttribute('data-src');
+          settleQueue();
+        };
+
+        const timeoutId = setTimeout(() => {
+          // 端末や通信状況によって1枚の画像が詰まっても、以降の画像読み込みは継続する。
+          settleQueue();
+        }, TYPE_IMAGE_LOAD_TIMEOUT_MS);
 
         image.addEventListener('load', finish, { once: true });
         image.addEventListener('error', finish, { once: true });
         image.src = imageUrl;
+
+        if (image.complete) {
+          finish();
+        }
       });
-    }
-
-    function loadTypeImage(image, isPriorityImage) {
-      const imageUrl = image.dataset.src;
-      if (!imageUrl) {
-        return;
-      }
-
-      image.loading = isPriorityImage ? 'eager' : 'lazy';
-      image.decoding = 'async';
-      if (isPriorityImage) {
-        image.fetchPriority = 'high';
-      }
-
-      const finish = () => {
-        image.classList.add('is-loaded');
-        image.removeAttribute('data-src');
-      };
-
-      image.addEventListener('load', finish, { once: true });
-      image.addEventListener('error', finish, { once: true });
-      image.src = imageUrl;
     }
 
     document.getElementById('types-grid').innerHTML = typeOrder.map(createTypeCard).join('');
