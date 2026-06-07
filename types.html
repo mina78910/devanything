@@ -112,21 +112,12 @@
       box-shadow: var(--pop-shadow);
     }
 
-    .type-card::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto;
-      height: 10px;
-      background: var(--type-color, var(--accent-pink));
-      border-bottom: 3px solid var(--ink-black);
-    }
-
     .type-card-inner {
       display: flex;
       flex-direction: column;
       flex: 1;
       gap: 14px;
-      padding: 22px 16px 16px;
+      padding: 16px;
     }
 
     .type-heading {
@@ -339,7 +330,7 @@
     <header class="page-header">
       <div class="title-badge">性格14タイプ診断</div>
       <h1 class="main-title">14タイプ一覧</h1>
-      <p class="lead-card">診断結果に出てくるキャラクターをまとめてチェック！画像と診断結果の文章は、結果ページと同じ共通データを使って表示しているよ。</p>
+      <p class="lead-card">診断結果に出てくるキャラクターをまとめてチェック！</p>
     </header>
 
     <section id="types-grid" class="types-grid" aria-label="14タイプ一覧"></section>
@@ -356,7 +347,7 @@
       if (!data) return '';
 
       return `
-        <article class="type-card" style="--type-color: ${data.hex};">
+        <article class="type-card">
           <div class="type-card-inner">
             <div class="type-heading">
               <h2 class="type-name">${data.name}</h2>
