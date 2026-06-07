@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>14タイプ一覧 | フォーユー診断</title>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Kiwi+Maru:wght@500;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #E0F7FA;
+      --ink-black: #111111;
+      --card-bg: #FFFFFF;
+      --accent-pink: #FF4081;
+      --accent-yellow: #FFEA00;
+      --accent-green: #00E676;
+      --accent-purple: #D500F9;
+      --font-pixel: 'DotGothic16', sans-serif;
+      --font-round: 'Kiwi Maru', serif;
+      --pop-shadow: 4px 4px 0px var(--ink-black);
+      --screen-x: clamp(18px, 5vw, 40px);
+      --screen-y: clamp(24px, 6dvh, 48px);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      word-wrap: break-word;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+      background-color: var(--bg-base);
+      background-image: radial-gradient(var(--ink-black) 2px, transparent 2px);
+      background-size: 20px 20px;
+      color: var(--ink-black);
+      font-family: var(--font-round);
+      overflow-x: hidden;
+    }
+
+    .types-page {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      padding: calc(var(--screen-y) + env(safe-area-inset-top)) var(--screen-x) calc(var(--screen-y) + env(safe-area-inset-bottom));
+    }
+
+    .page-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: clamp(22px, 5vw, 36px);
+      text-align: center;
+    }
+
+    .title-badge {
+      display: inline-block;
+      background: var(--accent-pink);
+      color: #fff;
+      font-family: var(--font-pixel);
+      padding: 5px 15px;
+      border: 3px solid var(--ink-black);
+      border-radius: 20px;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      transform: rotate(-5deg);
+      box-shadow: var(--pop-shadow);
+    }
+
+    .main-title {
+      margin: 0;
+      color: #fff;
+      font-family: var(--font-round);
+      font-size: clamp(2.3rem, 11vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      -webkit-text-stroke: clamp(2px, 0.8vw, 3px) var(--ink-black);
+      text-shadow: 4px 4px 0px var(--accent-purple);
+      transform: rotate(2deg);
+    }
+
+    .lead-card {
+      width: min(100%, 620px);
+      margin: 0;
+      padding: clamp(12px, 3vw, 16px) clamp(14px, 4vw, 20px);
+      background: var(--card-bg);
+      border: 3px solid var(--ink-black);
+      border-radius: 18px;
+      box-shadow: var(--pop-shadow);
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .types-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .type-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: var(--card-bg);
+      border: 4px solid var(--ink-black);
+      border-radius: 24px;
+      box-shadow: var(--pop-shadow);
+    }
+
+    .type-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 10px;
+      background: var(--type-color, var(--accent-pink));
+      border-bottom: 3px solid var(--ink-black);
+    }
+
+    .type-card-inner {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 14px;
+      padding: 22px 16px 16px;
+    }
+
+    .type-heading {
+      text-align: center;
+    }
+
+    .type-name {
+      margin: 0 0 4px;
+      color: #e91e63;
+      font-size: clamp(1.55rem, 8vw, 2rem);
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .type-label {
+      color: #7f8c8d;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .type-core {
+      margin: 0;
+      color: #555;
+      text-align: center;
+      font-size: 1.02rem;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .type-core-text {
+      display: inline-block;
+      color: #8e24aa;
+      font-size: 1.18rem;
+      letter-spacing: 0.03em;
+    }
+
+    .type-image {
+      display: block;
+      width: min(100%, 230px);
+      height: auto;
+      margin: 0 auto;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
+    }
+
+    .type-details {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      text-align: left;
+    }
+
+    .sticker-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 2px solid var(--ink-black);
+      border-radius: 18px;
+      box-shadow: 3px 3px 0 var(--ink-black);
+      padding: 14px;
+    }
+
+    .sticker-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 6px;
+      background: var(--accent-yellow);
+      border-bottom: 2px solid var(--ink-black);
+    }
+
+    .sticker-title {
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 10px;
+      padding: 4px 12px;
+      background: var(--card-bg);
+      border: 2px solid var(--ink-black);
+      border-radius: 999px;
+      box-shadow: 1px 1px 0 var(--accent-yellow);
+      font-family: var(--font-pixel);
+      font-weight: 800;
+    }
+
+    .status-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--ink-black);
+      border-radius: 12px;
+    }
+
+    .type-text-content {
+      margin: 0;
+      color: var(--ink-black);
+      font-family: var(--font-pixel);
+      font-size: clamp(0.98rem, 4vw, 1.08rem);
+      font-weight: 800;
+      line-height: 1.55;
+      letter-spacing: 0.02em;
+      text-shadow: 2px 2px 0 var(--accent-yellow);
+    }
+
+    .status-main {
+      font-size: clamp(1.08rem, 5vw, 1.22rem);
+    }
+
+    .status-sub {
+      padding-top: 8px;
+      border-top: 1px dashed var(--ink-black);
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-pop {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      background: var(--card-bg);
+      color: var(--ink-black);
+      border: 1px solid var(--ink-black);
+      border-radius: 999px;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.9rem, 3.6vw, 1rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      text-shadow: 2px 2px 0 var(--accent-yellow);
+    }
+
+    .weakness-text {
+      padding: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--ink-black);
+      border-radius: 12px;
+    }
+
+    .page-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: clamp(24px, 6vw, 40px);
+    }
+
+    .btn-pop {
+      display: inline-block;
+      width: min(100%, 320px);
+      padding: 15px 10px;
+      background: var(--card-bg);
+      color: var(--ink-black);
+      border: 4px solid var(--ink-black);
+      border-radius: 30px;
+      box-shadow: 0px 8px 0px var(--ink-black);
+      cursor: pointer;
+      font-family: var(--font-pixel);
+      font-size: clamp(1.05rem, 5vw, 1.35rem);
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.1s;
+    }
+
+    .btn-pop:active {
+      transform: translateY(8px);
+      box-shadow: 0px 0px 0px var(--ink-black);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .btn-pop:hover:not(:active) {
+        transform: translate(-1px, -1px);
+        box-shadow: 0px 9px 0px var(--ink-black);
+      }
+    }
+
+    @media (max-width: 380px) {
+      :root {
+        --screen-x: 16px;
+        --screen-y: 20px;
+        --pop-shadow: 3px 3px 0px var(--ink-black);
+      }
+
+      .type-card,
+      .btn-pop {
+        border-width: 3px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      :root {
+        --screen-x: 32px;
+        --screen-y: 44px;
+        --pop-shadow: 5px 5px 0px var(--ink-black);
+      }
+
+      .types-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="types-page">
+    <header class="page-header">
+      <div class="title-badge">性格14タイプ診断</div>
+      <h1 class="main-title">14タイプ一覧</h1>
+      <p class="lead-card">診断結果に出てくるキャラクターをまとめてチェック！画像と診断結果の文章は、結果ページと同じ共通データを使って表示しているよ。</p>
+    </header>
+
+    <section id="types-grid" class="types-grid" aria-label="14タイプ一覧"></section>
+
+    <div class="page-actions">
+      <a class="btn-pop" href="index.html">診断トップへ戻る</a>
+    </div>
+  </main>
+
+  <script src="type-data.js"></script>
+  <script>
+    function createTypeCard(typeKey) {
+      const data = typeDict[typeKey];
+      if (!data) return '';
+
+      return `
+        <article class="type-card" style="--type-color: ${data.hex};">
+          <div class="type-card-inner">
+            <div class="type-heading">
+              <h2 class="type-name">${data.name}</h2>
+              <div class="type-label">TYPE: ${typeKey}</div>
+            </div>
+
+            <p class="type-core">
+              <span class="type-core-text">～${data.core}～</span><br>
+              キミの隠された才能が暴かれたぞ！<br>
+              友達にもシェアして結果を見せ合おう！
+            </p>
+
+            <img src="${data.image}" alt="${data.name}のキャラクター画像" class="type-image">
+
+            <div class="type-details" aria-label="${data.name}のくわしい特徴">
+              <div class="sticker-card">
+                <div class="sticker-title">１ 基本ステータス</div>
+                <div class="status-lines">
+                  <p class="type-text-content status-main">${data.status[0]}</p>
+                  <p class="type-text-content status-sub">${data.status[1]}</p>
+                </div>
+              </div>
+
+              <div class="sticker-card">
+                <div class="sticker-title">２ あなたの強み✨</div>
+                <div class="tag-container">
+                  ${data.strengths.map(strength => `<span class="tag-pop">${strength}</span>`).join('')}
+                </div>
+              </div>
+
+              <div class="sticker-card">
+                <div class="sticker-title">３ あなたの弱点💣</div>
+                <p class="type-text-content weakness-text">${data.weakness}</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    document.getElementById('types-grid').innerHTML = typeOrder.map(createTypeCard).join('');
+  </script>
+</body>
+
+</html>
