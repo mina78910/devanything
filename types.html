@@ -460,6 +460,28 @@
       });
     }
 
+    function loadTypeImage(image, isPriorityImage) {
+      const imageUrl = image.dataset.src;
+      if (!imageUrl) {
+        return;
+      }
+
+      image.loading = isPriorityImage ? 'eager' : 'lazy';
+      image.decoding = 'async';
+      if (isPriorityImage) {
+        image.fetchPriority = 'high';
+      }
+
+      const finish = () => {
+        image.classList.add('is-loaded');
+        image.removeAttribute('data-src');
+      };
+
+      image.addEventListener('load', finish, { once: true });
+      image.addEventListener('error', finish, { once: true });
+      image.src = imageUrl;
+    }
+
     document.getElementById('types-grid').innerHTML = typeOrder.map(createTypeCard).join('');
     loadTypeImagesInOrder();
   </script>
