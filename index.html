@@ -360,6 +360,118 @@
       margin: 0;
     }
 
+    .result-details {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      margin: 18px 0 0;
+      text-align: left;
+    }
+
+    .sticker-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 2px solid var(--ink-black);
+      border-radius: 18px;
+      box-shadow: 3px 3px 0 var(--ink-black);
+      padding: 14px;
+      transform: rotate(-1deg);
+    }
+
+    .sticker-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 6px;
+      background: var(--accent-yellow);
+      border-bottom: 2px solid var(--ink-black);
+    }
+
+    .sticker-card:nth-child(even) {
+      transform: rotate(1deg);
+    }
+
+    .sticker-title {
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-pixel);
+      font-weight: 800;
+      background: var(--card-bg);
+      color: var(--ink-black);
+      border: 2px solid var(--ink-black);
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin-bottom: 10px;
+      box-shadow: 1px 1px 0 var(--accent-yellow);
+    }
+
+    .status-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--ink-black);
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .res-text-content {
+      font-family: var(--font-pixel);
+      font-size: clamp(1rem, 4vw, 1.12rem);
+      font-weight: 800;
+      line-height: 1.55;
+      color: var(--ink-black);
+      text-shadow: 2px 2px 0 var(--accent-yellow);
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+
+    .status-main {
+      font-size: clamp(1.12rem, 5vw, 1.28rem);
+    }
+
+    .status-sub {
+      border-top: 1px dashed var(--ink-black);
+      padding-top: 8px;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-pop {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-bg);
+      color: var(--ink-black);
+      border: 1px solid var(--ink-black);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-family: var(--font-pixel);
+      font-weight: 800;
+      font-size: clamp(0.9rem, 3.6vw, 1rem);
+      line-height: 1.2;
+      text-shadow: 2px 2px 0 var(--accent-yellow);
+      letter-spacing: 0.02em;
+    }
+
+    .weakness-card {
+      background: var(--card-bg);
+    }
+
+    .weakness-text {
+      border: 1px solid var(--ink-black);
+      border-radius: 12px;
+      background: var(--card-bg);
+      padding: 10px;
+    }
+
     .share-buttons {
       display: flex;
       gap: 10px;
@@ -594,6 +706,26 @@
         <p class="result-summary" id="res-core">
           キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！
         </p>
+
+        <div class="result-details" aria-label="診断タイプのくわしい特徴">
+          <div class="sticker-card">
+            <div class="sticker-title">１ 基本ステータス</div>
+            <div class="status-lines">
+              <p id="res-status-main" class="res-text-content status-main"></p>
+              <p id="res-status-sub" class="res-text-content status-sub"></p>
+            </div>
+          </div>
+
+          <div class="sticker-card">
+            <div class="sticker-title">２ あなたの強み✨</div>
+            <div id="res-strengths" class="tag-container"></div>
+          </div>
+
+          <div class="sticker-card weakness-card">
+            <div class="sticker-title">３ あなたの弱点💣</div>
+            <p id="res-weakness" class="res-text-content weakness-text"></p>
+          </div>
+        </div>
       </div>
 
       <div class="share-buttons stagger">
@@ -632,20 +764,132 @@
 
     // 14分類の定義データ
     const typeDict = {
-        "C-C": { name: "フルスロットル", core: "突破・勝負・アクセル", hex: "#FF3D00", image: "14_character_pngs/01_C-C_フルスロットル.png" },
-        "C-P": { name: "ブースター", core: "熱量で引っ張る", hex: "#FF9100", image: "14_character_pngs/02_C-P_ブースター.png" },
-        "C-A": { name: "裏参謀", core: "冷静に勝つ", hex: "#00B0FF", image: "14_character_pngs/03_C-A_裏参謀.png" },
-        "P-P": { name: "ハイテンション", core: "楽しい・目立つ", hex: "#F50057", image: "14_character_pngs/04_P-P_ハイテンション.png" },
-        "P-C": { name: "熱血マン", core: "主役感＋突破", hex: "#FFD600", image: "14_character_pngs/05_P-C_熱血マン.png" },
-        "P-S": { name: "フレンドメーカー", core: "みんなで楽しく", hex: "#FF4081", image: "14_character_pngs/06_P-S_フレンドメーカー.png" },
-        "S-S": { name: "安心基地", core: "安心・癒し", hex: "#00E676", image: "14_character_pngs/07_S-S_安心基地.png" },
-        "S-P": { name: "応援団", core: "優しさ＋社交性", hex: "#FF80AB", image: "14_character_pngs/08_S-P_応援団.png" },
-        "S-A": { name: "黒子役", core: "静かな支援", hex: "#76FF03", image: "14_character_pngs/09_S-A_黒子役.png" },
-        "A-A": { name: "インテリ", core: "分析・探究", hex: "#651FFF", image: "14_character_pngs/10_A-A_インテリ.png" },
-        "A-C": { name: "司令塔", core: "論理で勝つ", hex: "#2979FF", image: "14_character_pngs/11_A-C_司令塔.png" },
-        "A-S": { name: "バランサー", core: "慎重＋配慮", hex: "#00E5FF", image: "14_character_pngs/12_A-S_バランサー.png" },
-        "SC融合": { name: "仲間番長", core: "優しさ＋闘志", hex: "#00BFA5", image: "14_character_pngs/13_S-C融合_仲間番長.png" },
-        "AP融合": { name: "妄想族", core: "感性×発想×探究", hex: "#D500F9", image: "14_character_pngs/14_A-P融合_妄想族.png" }
+        "C-C": {
+            name: "フルスロットル",
+            core: "突破・勝負・アクセル",
+            status: ["勝負こそ燃料", "全速力で壁をぶち抜く"],
+            strengths: ["突破力", "勝負勘", "行動スピード"],
+            weakness: "止まって考える時間が長いとイライラ。強く言いすぎて周りがびっくりすることも。",
+            hex: "#FF3D00",
+            image: "14_character_pngs/01_C-C_フルスロットル.png"
+        },
+        "C-P": {
+            name: "ブースター",
+            core: "熱量で引っ張る",
+            status: ["熱量がエンジン", "勢いと明るさでみんなを加速"],
+            strengths: ["巻き込み力", "瞬発力", "場の点火"],
+            weakness: "盛り上がるほど細かい確認を忘れがち。テンション任せで突っ走りすぎ注意。",
+            hex: "#FF9100",
+            image: "14_character_pngs/02_C-P_ブースター.png"
+        },
+        "C-A": {
+            name: "裏参謀",
+            core: "冷静に勝つ",
+            status: ["勝ち筋を読む策士", "熱い闘志をクールに運用"],
+            strengths: ["分析力", "作戦設計", "冷静な判断"],
+            weakness: "頭の中で勝ち筋が見えすぎて、説明が短くなりがち。怖く見られる時も。",
+            hex: "#00B0FF",
+            image: "14_character_pngs/03_C-A_裏参謀.png"
+        },
+        "P-P": {
+            name: "ハイテンション",
+            core: "楽しい・目立つ",
+            status: ["楽しいが正義", "感情全開で共鳴拡散"],
+            strengths: ["ムード形成", "共感力", "元気供給"],
+            weakness: "退屈・無反応・ノリの悪さに弱め。集中が切れると一気に電池切れ。",
+            hex: "#F50057",
+            image: "14_character_pngs/04_P-P_ハイテンション.png"
+        },
+        "P-C": {
+            name: "熱血マン",
+            core: "主役感＋突破",
+            status: ["主役スイッチ常時ON", "熱い言葉で前線をこじ開ける"],
+            strengths: ["リーダー感", "情熱表現", "突破の号令"],
+            weakness: "注目されない・勢いを止められる場面が苦手。空回りすると熱量が圧になることも。",
+            hex: "#FFD600",
+            image: "14_character_pngs/05_P-C_熱血マン.png"
+        },
+        "P-S": {
+            name: "フレンドメーカー",
+            core: "みんなで楽しく",
+            status: ["仲良し空間クリエイター", "楽しい輪を広げて安心も配る"],
+            strengths: ["友達づくり", "空気ほぐし", "ポジティブ配慮"],
+            weakness: "みんなに合わせすぎて自分の本音が後回しに。輪から外れる空気にかなり敏感。",
+            hex: "#FF4081",
+            image: "14_character_pngs/06_P-S_フレンドメーカー.png"
+        },
+        "S-S": {
+            name: "安心基地",
+            core: "安心・癒し",
+            status: ["安心が最強装備", "そばにいるだけで場をゆるめる"],
+            strengths: ["癒し力", "聞く力", "安定感"],
+            weakness: "急な変化や強い対立が苦手。頼られすぎると自分の疲れに気づきにくい。",
+            hex: "#00E676",
+            image: "14_character_pngs/07_S-S_安心基地.png"
+        },
+        "S-P": {
+            name: "応援団",
+            core: "優しさ＋社交性",
+            status: ["応援で世界を明るく", "人の良さを見つけて全力プッシュ"],
+            strengths: ["励まし力", "親しみやすさ", "共感サポート"],
+            weakness: "感謝や反応がないとしょんぼり。人の気持ちを背負いすぎて疲れることも。",
+            hex: "#FF80AB",
+            image: "14_character_pngs/08_S-P_応援団.png"
+        },
+        "S-A": {
+            name: "黒子役",
+            core: "静かな支援",
+            status: ["見えない所で支える職人", "静かに整えてチームを守る"],
+            strengths: ["気配り", "裏方力", "継続サポート"],
+            weakness: "自分の頑張りを言葉にするのが苦手。気づかれないまま抱え込みやすい。",
+            hex: "#76FF03",
+            image: "14_character_pngs/09_S-A_黒子役.png"
+        },
+        "A-A": {
+            name: "インテリ",
+            core: "分析・探究",
+            status: ["納得こそ安心", "情報を集めて深く掘り進む"],
+            strengths: ["探究心", "観察力", "論理整理"],
+            weakness: "雑な説明や根拠なしのノリが苦手。考えすぎて動き出しが遅れる時も。",
+            hex: "#651FFF",
+            image: "14_character_pngs/10_A-A_インテリ.png"
+        },
+        "A-C": {
+            name: "司令塔",
+            core: "論理で勝つ",
+            status: ["論理で盤面制圧", "冷静な指示で勝ちに導く"],
+            strengths: ["戦略思考", "判断基準", "全体設計"],
+            weakness: "非効率や曖昧な指示に弱い。正しさを優先しすぎると冷たく見えることも。",
+            hex: "#2979FF",
+            image: "14_character_pngs/11_A-C_司令塔.png"
+        },
+        "A-S": {
+            name: "バランサー",
+            core: "慎重＋配慮",
+            status: ["安全運転の調整役", "考えてから動き、みんなの負担をならす"],
+            strengths: ["慎重さ", "調整力", "配慮の精度"],
+            weakness: "急かされる・決めつけられるのが苦手。遠慮しすぎてチャンスを逃す時も。",
+            hex: "#00E5FF",
+            image: "14_character_pngs/12_A-S_バランサー.png"
+        },
+        "SC融合": {
+            name: "仲間番長",
+            core: "優しさ＋闘志",
+            status: ["仲間を守る番長気質", "優しさを武器に本気で立ち向かう"],
+            strengths: ["仲間思い", "守る力", "熱い責任感"],
+            weakness: "大事な人のために無理をしがち。敵味方を分けすぎると頑固モードに。",
+            hex: "#00BFA5",
+            image: "14_character_pngs/13_S-C融合_仲間番長.png"
+        },
+        "AP融合": {
+            name: "妄想族",
+            core: "感性×発想×探究",
+            status: ["ひらめき探究オタク", "妄想と分析で新世界をつくる"],
+            strengths: ["発想力", "世界観づくり", "深掘り力"],
+            weakness: "興味がないことや現実的すぎる制約が苦手。頭の中が広がりすぎて説明が迷子に。",
+            hex: "#D500F9",
+            image: "14_character_pngs/14_A-P融合_妄想族.png"
+        }
     };
 
     let currentQ = 0;
@@ -747,6 +991,12 @@
         document.getElementById('res-name').innerText = resData.name;
         document.getElementById('res-label').innerText = `TYPE: ${finalTypeKey}`;
         document.getElementById('res-core').innerHTML = `${resData.core}<br>キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！`;
+        document.getElementById('res-status-main').innerText = resData.status[0];
+        document.getElementById('res-status-sub').innerText = resData.status[1];
+        document.getElementById('res-strengths').innerHTML = resData.strengths
+            .map(strength => `<span class="tag-pop">${strength}</span>`)
+            .join('');
+        document.getElementById('res-weakness').innerText = resData.weakness;
 
         const resultImage = document.getElementById('res-image');
         resultImage.src = resData.image;
