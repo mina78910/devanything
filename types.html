@@ -154,12 +154,29 @@
       letter-spacing: 0.03em;
     }
 
+    .type-image-frame {
+      display: grid;
+      place-items: center;
+      width: min(100%, 230px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255, 234, 0, 0.35), rgba(213, 0, 249, 0.16));
+    }
+
     .type-image {
       display: block;
-      width: min(100%, 230px);
+      width: 100%;
       height: auto;
-      margin: 0 auto;
+      opacity: 0;
+      transform: scale(0.96);
       filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+
+    .type-image.is-loaded {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .type-details {
@@ -360,7 +377,9 @@
               友達にもシェアして結果を見せ合おう！
             </p>
 
-            <img src="${data.image}" alt="${data.name}のキャラクター画像" class="type-image">
+            <div class="type-image-frame">
+              <img data-src="${data.image}" alt="${data.name}のキャラクター画像" class="type-image" width="1254" height="1254">
+            </div>
 
             <div class="type-details" aria-label="${data.name}のくわしい特徴">
               <div class="sticker-card">
@@ -388,7 +407,42 @@
       `;
     }
 
+    function loadTypeImagesInOrder() {
+      const images = Array.from(document.querySelectorAll('.type-image[data-src]'));
+
+      return images.reduce((previousLoad, image, index) => {
+        return previousLoad.then(() => loadTypeImage(image, index === 0));
+      }, Promise.resolve());
+    }
+
+    function loadTypeImage(image, isFirstImage) {
+      return new Promise((resolve) => {
+        const imageUrl = image.dataset.src;
+        if (!imageUrl) {
+          resolve();
+          return;
+        }
+
+        image.loading = isFirstImage ? 'eager' : 'lazy';
+        image.decoding = 'async';
+        if (isFirstImage) {
+          image.fetchPriority = 'high';
+        }
+
+        const finish = () => {
+          image.classList.add('is-loaded');
+          image.removeAttribute('data-src');
+          resolve();
+        };
+
+        image.addEventListener('load', finish, { once: true });
+        image.addEventListener('error', finish, { once: true });
+        image.src = imageUrl;
+      });
+    }
+
     document.getElementById('types-grid').innerHTML = typeOrder.map(createTypeCard).join('');
+    loadTypeImagesInOrder();
   </script>
 </body>
 
