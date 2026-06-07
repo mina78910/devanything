@@ -741,7 +741,7 @@
         </div>
       </div>
 
-      <button class="btn-pop stagger" onclick="location.reload()" style="margin-top: 30px; font-size: 1rem;">もう一度診断する</button>
+      <button class="btn-pop stagger" onclick="restartQuiz()" style="margin-top: 30px; font-size: 1rem;">もう一度診断する</button>
     </div>
   </div>
 
@@ -1017,8 +1017,21 @@
             finalTypeKey = `${primary}-${primary}`;
         }
 
+        showResult(finalTypeKey, 'question-screen');
+    }
+
+    function getAppBaseUrl() {
+        return location.href.split('#')[0].split('?')[0];
+    }
+
+    function getResultShareUrl(finalTypeKey) {
+        return new URL(`share/${finalTypeKey}.html`, getAppBaseUrl()).href;
+    }
+
+    function renderResult(finalTypeKey) {
         const resData = typeDict[finalTypeKey];
-        
+        if (!resData) return false;
+
         // 結果画面の描画（判定ロジックやスコア内訳は表示しない）
         document.documentElement.style.setProperty('--theme-color', resData.hex);
         document.getElementById('res-name').innerText = resData.name;
@@ -1036,14 +1049,37 @@
         resultImage.alt = `${resData.name}のキャラクター画像`;
 
         const shareText = `フォーユー診断の結果は「${resData.name}」でした！ #フォーユー診断`;
-        const shareUrl = location.href.split('#')[0];
+        const shareUrl = getResultShareUrl(finalTypeKey);
         document.getElementById('share-x').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-        document.getElementById('share-line').href = `https://line.me/R/msg/text/?${encodeURIComponent(`${shareText} ${shareUrl}`)}`;
+        const lineMessage = encodeURIComponent(`${shareText} ${shareUrl}`);
+        document.getElementById('share-line').href = `https://line.me/R/msg/text/?${lineMessage}`;
 
-        document.getElementById('question-screen').classList.remove('active');
+        return true;
+    }
+
+    function showResult(finalTypeKey, previousScreenId = 'start-screen') {
+        if (!renderResult(finalTypeKey)) return;
+
+        document.getElementById(previousScreenId).classList.remove('active');
         document.getElementById('result-screen').classList.add('active');
         window.scrollTo(0,0);
     }
+
+    function showSharedResultFromQuery() {
+        const params = new URLSearchParams(location.search);
+        const sharedType = params.get('type');
+        if (!sharedType || !typeDict[sharedType]) return;
+
+        document.getElementById('start-screen').classList.remove('active');
+        document.getElementById('question-screen').classList.remove('active');
+        showResult(sharedType);
+    }
+
+    function restartQuiz() {
+        location.href = getAppBaseUrl();
+    }
+
+    showSharedResultFromQuery();
   </script>
 
 </body>
