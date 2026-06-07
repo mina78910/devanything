@@ -407,15 +407,34 @@
       `;
     }
 
+    const TYPE_IMAGE_LOAD_STAGGER_MS = 35;
+    const TYPE_IMAGE_MAX_CONCURRENT_LOADS = 2;
+    const PRIORITY_IMAGE_COUNT = 3;
+
     function loadTypeImagesInOrder() {
       const images = Array.from(document.querySelectorAll('.type-image[data-src]'));
+      let nextImageIndex = 0;
 
-      return images.reduce((previousLoad, image, index) => {
-        return previousLoad.then(() => loadTypeImage(image, index === 0));
-      }, Promise.resolve());
+      function startNextImage() {
+        const image = images[nextImageIndex];
+        const imageIndex = nextImageIndex;
+        nextImageIndex += 1;
+
+        if (!image) {
+          return;
+        }
+
+        loadTypeImage(image, imageIndex < PRIORITY_IMAGE_COUNT).finally(() => {
+          setTimeout(startNextImage, TYPE_IMAGE_LOAD_STAGGER_MS);
+        });
+      }
+
+      for (let i = 0; i < TYPE_IMAGE_MAX_CONCURRENT_LOADS; i += 1) {
+        setTimeout(startNextImage, TYPE_IMAGE_LOAD_STAGGER_MS * i);
+      }
     }
 
-    function loadTypeImage(image, isFirstImage) {
+    function loadTypeImage(image, isPriorityImage) {
       return new Promise((resolve) => {
         const imageUrl = image.dataset.src;
         if (!imageUrl) {
@@ -423,9 +442,9 @@
           return;
         }
 
-        image.loading = isFirstImage ? 'eager' : 'lazy';
+        image.loading = isPriorityImage ? 'eager' : 'lazy';
         image.decoding = 'async';
-        if (isFirstImage) {
+        if (isPriorityImage) {
           image.fetchPriority = 'high';
         }
 
