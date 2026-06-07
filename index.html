@@ -19,10 +19,6 @@
       --accent-yellow: #FFEA00;
       --accent-green: #00E676;
       --accent-purple: #D500F9;
-      --accent-red: #FF3D00;
-      --accent-yellow-soft: #FFF59D;
-      --accent-green-soft: #B9F6CA;
-      --accent-red-soft: #FFAB91;
 
       /* 動的テーマカラー */
       --theme-color: var(--accent-pink);
@@ -389,7 +385,7 @@
       position: absolute;
       inset: 0 0 auto;
       height: 6px;
-      background: var(--accent-yellow-soft);
+      background: var(--accent-yellow);
       border-bottom: 2px solid var(--ink-black);
     }
 
@@ -416,18 +412,20 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      background: var(--accent-yellow-soft);
-      color: var(--ink-black);
-      border: 2px solid var(--ink-black);
+      background: var(--card-bg);
+      border: 1px solid var(--ink-black);
       border-radius: 12px;
-      box-shadow: 1px 1px 0 var(--ink-black);
       padding: 10px;
     }
 
     .res-text-content {
+      font-family: var(--font-pixel);
       font-size: clamp(1rem, 4vw, 1.12rem);
       font-weight: 800;
       line-height: 1.55;
+      color: var(--ink-black);
+      text-shadow: 2px 2px 0 var(--accent-yellow);
+      letter-spacing: 0.02em;
       margin: 0;
     }
 
@@ -450,7 +448,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--accent-green-soft);
+      background: var(--card-bg);
       color: var(--ink-black);
       border: 1px solid var(--ink-black);
       border-radius: 999px;
@@ -459,7 +457,8 @@
       font-weight: 800;
       font-size: clamp(0.9rem, 3.6vw, 1rem);
       line-height: 1.2;
-      box-shadow: 1px 1px 0 var(--ink-black);
+      text-shadow: 2px 2px 0 var(--accent-yellow);
+      letter-spacing: 0.02em;
     }
 
     .weakness-card {
@@ -467,12 +466,10 @@
     }
 
     .weakness-text {
-      border: 2px solid var(--ink-black);
+      border: 1px solid var(--ink-black);
       border-radius: 12px;
-      background: var(--accent-red-soft);
-      color: var(--ink-black);
+      background: var(--card-bg);
       padding: 10px;
-      box-shadow: 1px 1px 0 var(--ink-black);
     }
 
     .share-buttons {
