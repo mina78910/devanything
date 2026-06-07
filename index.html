@@ -370,29 +370,61 @@
     }
 
     .sticker-card {
-      background: #FFF;
-      border: 3px solid var(--ink-black);
+      position: relative;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 4px solid var(--ink-black);
       border-radius: 18px;
       box-shadow: var(--pop-shadow);
-      padding: 14px;
+      padding: 16px 14px 14px;
       transform: rotate(-1deg);
+    }
+
+    .sticker-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 10px;
+      background: var(--accent-yellow);
+      border-bottom: 3px solid var(--ink-black);
     }
 
     .sticker-card:nth-child(even) {
       transform: rotate(1deg);
     }
 
+    .sticker-card:nth-child(2)::before {
+      background: var(--accent-green);
+    }
+
+    .sticker-card:nth-child(3)::before {
+      background: var(--accent-pink);
+    }
+
     .sticker-title {
       display: inline-block;
+      position: relative;
+      z-index: 1;
       font-family: var(--font-pixel);
       font-weight: 800;
-      background: var(--theme-color);
-      color: #fff;
-      border: 2px solid var(--ink-black);
+      background: var(--accent-yellow);
+      color: var(--ink-black);
+      border: 3px solid var(--ink-black);
       border-radius: 999px;
       padding: 4px 12px;
       margin-bottom: 10px;
       box-shadow: 2px 2px 0 var(--ink-black);
+    }
+
+    .sticker-card:nth-child(2) .sticker-title,
+    .tag-pop {
+      background: var(--accent-green);
+      color: var(--ink-black);
+    }
+
+    .sticker-card:nth-child(3) .sticker-title {
+      background: var(--accent-pink);
+      color: #fff;
     }
 
     .status-lines {
@@ -409,7 +441,15 @@
     }
 
     .status-main {
-      color: var(--theme-color);
+      display: inline-block;
+      width: fit-content;
+      max-width: 100%;
+      background: var(--accent-yellow);
+      color: var(--ink-black);
+      border: 2px solid var(--ink-black);
+      border-radius: 12px;
+      box-shadow: 2px 2px 0 var(--ink-black);
+      padding: 4px 8px;
       font-size: clamp(1.12rem, 5vw, 1.28rem);
     }
 
@@ -428,8 +468,6 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--theme-color);
-      color: #fff;
       border: 2px solid var(--ink-black);
       border-radius: 999px;
       padding: 6px 10px;
@@ -440,21 +478,26 @@
       box-shadow: 2px 2px 0 var(--ink-black);
     }
 
-    .weakness-card {
-      background: #FFF0F5;
+    .tag-pop:nth-child(even) {
+      background: var(--accent-yellow);
     }
 
-    .weakness-card .sticker-title {
-      background: var(--ink-black);
+    .tag-pop:nth-child(3n) {
+      background: var(--accent-pink);
       color: #fff;
     }
 
+    .weakness-card {
+      background: var(--card-bg);
+    }
+
     .weakness-text {
-      border: 2px solid var(--accent-pink);
+      border: 3px solid var(--ink-black);
       border-radius: 12px;
-      background: #fff;
-      color: #444;
+      background: var(--accent-yellow);
+      color: var(--ink-black);
       padding: 10px;
+      box-shadow: 2px 2px 0 var(--ink-black);
     }
 
     .share-buttons {
