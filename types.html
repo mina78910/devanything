@@ -408,15 +408,55 @@
     }
 
     const TYPE_IMAGE_LOAD_STAGGER_MS = 35;
+    const TYPE_IMAGE_MAX_CONCURRENT_LOADS = 2;
     const PRIORITY_IMAGE_COUNT = 3;
 
     function loadTypeImagesInOrder() {
       const images = Array.from(document.querySelectorAll('.type-image[data-src]'));
+      let nextImageIndex = 0;
 
-      images.forEach((image, index) => {
-        setTimeout(() => {
-          loadTypeImage(image, index < PRIORITY_IMAGE_COUNT);
-        }, TYPE_IMAGE_LOAD_STAGGER_MS * index);
+      function startNextImage() {
+        const image = images[nextImageIndex];
+        const imageIndex = nextImageIndex;
+        nextImageIndex += 1;
+
+        if (!image) {
+          return;
+        }
+
+        loadTypeImage(image, imageIndex < PRIORITY_IMAGE_COUNT).finally(() => {
+          setTimeout(startNextImage, TYPE_IMAGE_LOAD_STAGGER_MS);
+        });
+      }
+
+      for (let i = 0; i < TYPE_IMAGE_MAX_CONCURRENT_LOADS; i += 1) {
+        setTimeout(startNextImage, TYPE_IMAGE_LOAD_STAGGER_MS * i);
+      }
+    }
+
+    function loadTypeImage(image, isPriorityImage) {
+      return new Promise((resolve) => {
+        const imageUrl = image.dataset.src;
+        if (!imageUrl) {
+          resolve();
+          return;
+        }
+
+        image.loading = isPriorityImage ? 'eager' : 'lazy';
+        image.decoding = 'async';
+        if (isPriorityImage) {
+          image.fetchPriority = 'high';
+        }
+
+        const finish = () => {
+          image.classList.add('is-loaded');
+          image.removeAttribute('data-src');
+          resolve();
+        };
+
+        image.addEventListener('load', finish, { once: true });
+        image.addEventListener('error', finish, { once: true });
+        image.src = imageUrl;
       });
     }
 
