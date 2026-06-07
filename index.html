@@ -357,7 +357,7 @@
       font-weight: 800;
       line-height: 1.5;
       color: #555;
-      margin: 0;
+      margin: 0 0 16px;
     }
 
     .result-details {
@@ -701,11 +701,16 @@
         <h3 class="result-char-name" id="res-name">キャラクター名</h3>
         <div class="result-sub-type" id="res-label">TYPE: --</div>
 
-        <img src="" alt="キャラクター画像" class="result-image" id="res-image">
-
         <p class="result-summary" id="res-core">
           キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！
         </p>
+
+        <img src="" alt="キャラクター画像" class="result-image" id="res-image">
+
+        <div class="share-buttons stagger">
+          <a href="#" class="share-btn share-x" id="share-x" target="_blank" rel="noopener">𝕏 でシェア</a>
+          <a href="#" class="share-btn share-line" id="share-line" target="_blank" rel="noopener">LINE で送る</a>
+        </div>
 
         <div class="result-details" aria-label="診断タイプのくわしい特徴">
           <div class="sticker-card">
@@ -726,11 +731,6 @@
             <p id="res-weakness" class="res-text-content weakness-text"></p>
           </div>
         </div>
-      </div>
-
-      <div class="share-buttons stagger">
-        <a href="#" class="share-btn share-x" id="share-x" target="_blank" rel="noopener">𝕏 でシェア</a>
-        <a href="#" class="share-btn share-line" id="share-line" target="_blank" rel="noopener">LINE で送る</a>
       </div>
 
       <button class="btn-pop stagger" onclick="location.reload()" style="margin-top: 30px; font-size: 1rem;">もう一度診断する</button>
