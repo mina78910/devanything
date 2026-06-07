@@ -738,28 +738,28 @@
   </div>
 
   <script>
-    // 中学生向けに意訳した設問リスト（全20問ミックス）
+    // 判定用設問リスト（各タイプ5問ずつ・重要質問フラグ付き）
     const questions = [
-        { text: "「嫌なことは嫌！」と先生や先輩相手でもハッキリ言えちゃう。", type: "C" },
-        { text: "「将来〇〇になりたい！」「来週の行事楽しみ！」と、先のことばかり考えてワクワクしている。", type: "P" },
-        { text: "友達のために何かしてあげたのに、「ありがとう」と言われないと結構モヤモヤする。", type: "S" },
-        { text: "会議や話し合いで、自分の意見をみんなの前で発表するのは苦手だ。", type: "A" },
-        { text: "休み時間や放課後は、少しの時間でも無駄にせずいろいろ詰め込んじゃう。", type: "C" },
-        { text: "クラスメイトから「一緒にいると面白いね」とよく言われる。", type: "P" },
-        { text: "友達から「これ手伝って！」と頼まれると、断れずに引き受けちゃう。", type: "S" },
-        { text: "初対面の人やあまり話したことない人には、かなり警戒しちゃう。", type: "A" },
-        { text: "友達と話すとき、思ったことをそのままズバッと言っちゃうことが多い。", type: "C" },
-        { text: "先生に怒られたり、テストの点が悪くても、「ま、いっか！」とすぐ立ち直れる。", type: "P" },
-        { text: "「あの子は頭がいいな」「あの子は運動できるな」と、つい自分と周りを比べちゃう。", type: "S" },
-        { text: "班の目標を決めたり何かを選ぶ時は、情報をいっぱい集めてじっくり考えたい。", type: "A" },
-        { text: "テストの点数や体育の試合など、勝負事になると絶対に負けたくない！", type: "C" },
-        { text: "友達とおしゃべりしていると、いつの間にか自分がずっと話している。", type: "P" },
-        { text: "クラスで困っている人がいると、つい声をかけて世話を焼いちゃう。", type: "S" },
-        { text: "新しいクラスになった時は、自分から話しかけるより様子を見ちゃう人見知りタイプ。", type: "A" },
-        { text: "ノートをまとめたり、係の仕事をする時は、完璧にやらないと気が済まない。", type: "C" },
-        { text: "席替えやクラス替えなど、新しい環境になるとテンションが上がる。", type: "P" },
-        { text: "係の仕事や掃除など、頑張ったことは先生や友達から「えらいね！」って褒められたい。", type: "S" },
-        { text: "嬉しいときや悲しいときに、顔や態度に感情を出すのがあまり得意じゃない。", type: "A" }
+        { text: "やりたくない係や役割を振られたら「嫌だ」とハッキリ言える？", type: "C" },
+        { text: "先の予定（楽しみな予定がある週末など）を想像して、よく一人でワクワクしている？", type: "P" },
+        { text: "友達のために何かしてあげたとき、「ありがとう」と言われないとモヤモヤすることがある？", type: "S", important: true },
+        { text: "自分の意見や考えを先生や友達にはっきり伝えることは苦手？", type: "A" },
+        { text: "休み時間は、短い時間でもギリギリまで遊んだり色んなことをしたい？", type: "C" },
+        { text: "周りの友達から「一緒にいると面白い・楽しい」とよく言われるほう？", type: "P", important: true },
+        { text: "友達から「これ手伝って！」と頼まれると、自分の都合が悪くても断れないタイプ？", type: "S", important: true },
+        { text: "初対面の人や新しいクラスメイトには、警戒してなかなか自分を出せない？", type: "A" },
+        { text: "友達に直してほしいところがあったら、遠回しじゃなく直接言っちゃう？", type: "C", important: true },
+        { text: "先生に怒られたり失敗しても、一晩寝たらケロッと忘れて元気になる？", type: "P" },
+        { text: "「あの子はできてるのに、自分は…」と、周りの友達と自分をよく比べてしまうタイプ？", type: "S", important: true },
+        { text: "大事なものや値段が高いものを買うときは、口コミや情報をじっくり調べてから決める？", type: "A" },
+        { text: "体育の試合やテストの点数など、勝負事には絶対に勝ちたい？", type: "C", important: true },
+        { text: "友達と話しているとき、聞き役になるより自分がしゃべっていることの方が多い？", type: "P", important: true },
+        { text: "頼まれていなくても、困っていそうな友達がいるとつい助けたり世話を焼いちゃう？", type: "S" },
+        { text: "どちらかというと人見知りで、自分から話しかけに行くのは苦手？", type: "A" },
+        { text: "ノートのまとめや作品づくりは、自分が納得するまで完璧にやりたい？", type: "C" },
+        { text: "突然のクラス替えや席替えでも、すぐに新しい環境を楽しめるタイプ？", type: "P" },
+        { text: "テストの点数や係の仕事を頑張ったときは、先生や親から褒められたい？", type: "S" },
+        { text: "嬉しいときや悲しいときに、顔や態度に感情を出すのが苦手？", type: "A" }
     ];
 
     // 14分類の定義データ
@@ -872,7 +872,7 @@
             hex: "#651FFF",
             image: "14_character_pngs/12_A-A_インテリ.png"
         },
-        "S-C": {
+        "C-S": {
             name: "仲間番長",
             core: "優しさ＋闘志",
             status: ["仲間を守る番長気質", "優しさを武器に本気で立ち向かう"],
@@ -881,7 +881,7 @@
             hex: "#00BFA5",
             image: "14_character_pngs/13_S-C融合_仲間番長.png"
         },
-        "A-P": {
+        "P-A": {
             name: "妄想族",
             core: "感性×発想×探究",
             status: ["ひらめき探究オタク", "妄想と分析で新世界をつくる"],
@@ -910,7 +910,7 @@
         void qCard.offsetWidth; // リフロー強制
         
         document.getElementById('q-counter').innerText = `Q.${currentQ + 1}`;
-        document.getElementById('progress-fill').style.width = `${((currentQ + 1) / 20) * 100}%`;
+        document.getElementById('progress-fill').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
         qCard.innerText = questions[currentQ].text;
         
         // 戻るボタンの表示制御
@@ -920,10 +920,16 @@
     }
 
     function answer(scoreValue) {
-        answersArray[currentQ] = { type: questions[currentQ].type, score: scoreValue };
+        const question = questions[currentQ];
+        answersArray[currentQ] = {
+            type: question.type,
+            score: scoreValue,
+            important: question.important === true,
+            optionNumber: 5 - scoreValue
+        };
         currentQ++;
         
-        if (currentQ < 20) {
+        if (currentQ < questions.length) {
             setTimeout(showQuestion, 150); // 少しディレイを入れてアニメーションを強調
         } else {
             calculateResult();
@@ -939,44 +945,63 @@
 
     function calculateResult() {
         // 初期補正点（P:+1, S:+1, A:+2）
-        let scores = { C: 0, P: 1, S: 1, A: 2 }; 
-        let counts4 = { C: 0, P: 0, S: 0, A: 0 }; // 「完全にそう(4点)」の数
-        let counts34 = { C: 0, P: 0, S: 0, A: 0 }; // 「ポジティブ回答(3・4点)」の数
+        let scores = { C: 0, P: 1, S: 1, A: 2 };
+        let countsStrong = { C: 0, P: 0, S: 0, A: 0 }; // 「よくあてはまる（4点）」の数
+        let countsPositive = { C: 0, P: 0, S: 0, A: 0 }; // ポジティブ回答（3・4点）の数
+        let importantPositive = { C: 0, P: 0, S: 0, A: 0 }; // 重要質問へのポジティブ回答数
+        let excludedByImportant = { C: false, P: false, S: false, A: false };
 
         answersArray.forEach(ans => {
             scores[ans.type] += ans.score;
-            if (ans.score === 4) counts4[ans.type]++;
-            if (ans.score >= 3) counts34[ans.type]++;
+            if (ans.score === 4) countsStrong[ans.type]++;
+            if (ans.score >= 3) countsPositive[ans.type]++;
+
+            if (ans.important) {
+                if (ans.score >= 3) importantPositive[ans.type]++;
+                // 判定ルール①: 重要質問で選択肢4（ぜんぜん違う）を選んだタイプは除外
+                if (ans.optionNumber === 4) excludedByImportant[ans.type] = true;
+            }
         });
 
-        let types = ['C', 'P', 'S', 'A'];
+        const fixedOrder = { C: 4, P: 3, S: 2, A: 1 };
+        let types = ['C', 'P', 'S', 'A'].filter(type => !excludedByImportant[type]);
+
+        // 全タイプが除外された場合だけ、結果を出せるように除外なしで再判定する
+        if (types.length === 0) types = ['C', 'P', 'S', 'A'];
         
-        // タイブレーク処理を含むソート
+        // 合計点を基本に、同点時は「よくあてはまる」数→ポジティブ回答数→重要質問で優先
         types.sort((a, b) => {
-            if (scores[b] !== scores[a]) return scores[b] - scores[a]; // ①合計点
-            if (counts4[b] !== counts4[a]) return counts4[b] - counts4[a]; // ②4点の数
-            if (counts34[b] !== counts34[a]) return counts34[b] - counts34[a]; // ③3,4点の数
-            
-            // ④それでも同点の場合の固定優先度 (C > P > S > A)
-            let order = {C:4, P:3, S:2, A:1};
-            return order[b] - order[a];
+            if (scores[b] !== scores[a]) return scores[b] - scores[a];
+            if (countsStrong[b] !== countsStrong[a]) return countsStrong[b] - countsStrong[a];
+            if (countsPositive[b] !== countsPositive[a]) return countsPositive[b] - countsPositive[a];
+            if (importantPositive[b] !== importantPositive[a]) return importantPositive[b] - importantPositive[a];
+            return fixedOrder[b] - fixedOrder[a];
         });
 
         let primary = types[0];
-        let secondary = types[1];
+        let secondary = types[1] || primary;
         let diff = scores[primary] - scores[secondary];
 
-        let finalTypeKey = "";
+        const predefinedTypes = [
+            'C-C', 'C-P', 'C-A', 'P-C', 'P-P', 'P-S', 'S-P',
+            'S-S', 'S-A', 'A-C', 'A-S', 'A-A', 'C-S', 'P-A'
+        ];
+
+        let finalTypeKey = '';
 
         // 1位と2位の差が4点以上の場合は「純粋タイプ」
-        if (diff >= 4) {
+        if (diff >= 4 || primary === secondary) {
             finalTypeKey = `${primary}-${primary}`;
         } else {
-            let combo = `${primary}-${secondary}`;
-            // 融合タイプの特別判定
-            if (combo === "S-C" || combo === "C-S") finalTypeKey = "SC融合";
-            else if (combo === "A-P" || combo === "P-A") finalTypeKey = "AP融合";
-            else finalTypeKey = combo;
+            const combo = `${primary}-${secondary}`;
+            const reverseCombo = `${secondary}-${primary}`;
+
+            if (predefinedTypes.includes(combo)) {
+                finalTypeKey = combo;
+            } else if (predefinedTypes.includes(reverseCombo)) {
+                // 14分類に存在しない組み合わせは、定義済みの向きに寄せる
+                finalTypeKey = reverseCombo;
+            }
         }
 
         // 万が一、定義データに存在しない組み合わせになった場合のフォールバック
