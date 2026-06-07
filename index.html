@@ -724,10 +724,14 @@
         <div class="result-sub-type" id="res-label">TYPE: --</div>
 
         <p class="result-summary" id="res-core">
-          キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！
+          <span class="result-core-text">～診断結果のコア～</span>
         </p>
 
         <img src="" alt="キャラクター画像" class="result-image" id="res-image">
+
+        <p class="result-summary" id="res-share-copy">
+          キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！
+        </p>
 
         <div class="share-buttons stagger">
           <a href="#" class="share-btn share-x" id="share-x" target="_blank" rel="noopener">𝕏 でシェア</a>
@@ -923,7 +927,7 @@
         document.documentElement.style.setProperty('--theme-color', resData.hex);
         document.getElementById('res-name').innerText = resData.name;
         document.getElementById('res-label').innerText = `TYPE: ${finalTypeKey}`;
-        document.getElementById('res-core').innerHTML = `<span class="result-core-text">～${resData.core}～</span><br>キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！`;
+        document.getElementById('res-core').innerHTML = `<span class="result-core-text">～${resData.core}～</span>`;
         document.getElementById('res-status-main').innerText = resData.status[0];
         document.getElementById('res-status-sub').innerText = resData.status[1];
         document.getElementById('res-strengths').innerHTML = resData.strengths
