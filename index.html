@@ -360,6 +360,14 @@
       margin: 0 0 16px;
     }
 
+    .result-core-text {
+      display: inline-block;
+      font-size: 1.28rem;
+      color: #8e24aa;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+    }
+
     .result-details {
       display: flex;
       flex-direction: column;
@@ -856,10 +864,10 @@
         },
         "A-S": {
             name: "バランサー",
-            core: "慎重＋配慮",
-            status: ["安全運転の調整役", "考えてから動き、みんなの負担をならす"],
-            strengths: ["慎重さ", "調整力", "配慮の精度"],
-            weakness: "急かされる・決めつけられるのが苦手。遠慮しすぎてチャンスを逃す時も。",
+            core: "理解したい・整合性を保ちたい",
+            status: ["整理して配慮", "静かに関係を保つ"],
+            strengths: ["静かな助言", "安定維持"],
+            weakness: "感情表現不足・距離感に注意。感情圧力・強制同調が地雷になりやすい。",
             hex: "#00E5FF",
             image: "14_character_pngs/11_A-S_バランサー.png"
         },
@@ -1015,7 +1023,7 @@
         document.documentElement.style.setProperty('--theme-color', resData.hex);
         document.getElementById('res-name').innerText = resData.name;
         document.getElementById('res-label').innerText = `TYPE: ${finalTypeKey}`;
-        document.getElementById('res-core').innerHTML = `${resData.core}<br>キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！`;
+        document.getElementById('res-core').innerHTML = `<span class="result-core-text">～${resData.core}～</span><br>キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！`;
         document.getElementById('res-status-main').innerText = resData.status[0];
         document.getElementById('res-status-sub').innerText = resData.status[1];
         document.getElementById('res-strengths').innerHTML = resData.strengths
