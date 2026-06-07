@@ -296,8 +296,10 @@
 
     /* --- 結果画面 --- */
     #result-screen {
-      padding-top: calc(clamp(28px, 6dvh, 50px) + env(safe-area-inset-top));
-      justify-content: center;
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      overflow-y: auto;
+      justify-content: flex-start;
+      padding-top: calc(40px + env(safe-area-inset-top));
     }
 
     #result-screen.active .stagger {
@@ -305,65 +307,94 @@
       animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     }
 
-    .sticker-card {
-      border: 4px solid var(--ink-black);
-      border-radius: 20px;
-      background: var(--card-bg);
-      padding: clamp(22px, 6vw, 34px) clamp(18px, 6vw, 32px);
-      margin-bottom: clamp(16px, 3.5dvh, 25px);
-      position: relative;
-      box-shadow: var(--pop-shadow);
-      width: 100%;
+    .result-title {
+      font-size: 1.5rem;
+      margin: 0 0 20px;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: var(--font-pixel);
+      color: #ffd700;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
     }
 
-    .result-illustration {
-      font-size: clamp(4rem, 15vw, 5.5rem);
+    .result-card {
+      background: #fff;
+      color: #333;
+      width: 100%;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+      border: none;
+    }
+
+    .result-char-name {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e91e63;
+      margin: 0 0 5px;
+      line-height: 1.2;
+    }
+
+    .result-sub-type {
+      font-size: 0.9rem;
+      color: #7f8c8d;
       margin-bottom: 15px;
-      filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.2));
+    }
+
+    .result-image {
+      width: 250px;
+      height: auto;
+      max-width: 100%;
+      margin: 0 auto 20px;
+      display: block;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
       animation: float 3s ease-in-out infinite;
     }
 
-    .result-header-label {
-      font-family: var(--font-pixel);
-      font-size: clamp(0.9rem, 4vw, 1.1rem);
-      background: var(--ink-black);
-      color: #fff;
-      padding: 5px 15px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      transform: rotate(-2deg);
-      display: inline-block;
-    }
-
-    .result-type {
-      font-family: var(--font-round);
-      font-size: clamp(2.2rem, 10vw, 3.2rem);
-      font-weight: 800;
-      line-height: 1.2;
-      margin: 0 0 15px 0;
-      color: #fff;
-      -webkit-text-stroke: 2px var(--ink-black);
-      text-shadow: 4px 4px 0px var(--theme-color);
-    }
-
     .result-summary {
-      font-family: var(--font-round);
+      font-size: 1.05rem;
       font-weight: 800;
-      font-size: clamp(1.1rem, 5vw, 1.4rem);
-      background: var(--bg-base);
-      border: 3px solid var(--ink-black);
-      border-radius: 15px;
-      padding: clamp(10px, 3vw, 14px) clamp(16px, 5vw, 22px);
-      box-shadow: 2px 2px 0px var(--ink-black);
-      transform: rotate(1deg);
-      color: var(--ink-black);
+      line-height: 1.5;
+      color: #555;
+      margin: 0;
     }
 
+    .share-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 0;
+      width: 100%;
+    }
 
+    .share-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .share-btn:active {
+      transform: translateY(4px);
+      box-shadow: none;
+    }
+
+    .share-x {
+      background: #000;
+    }
+
+    .share-line {
+      background: #06C755;
+    }
 
     .start-tip {
       font-family: var(--font-round);
@@ -552,14 +583,25 @@
     </div>
 
     <div id="result-screen" class="screen">
-      <div class="sticker-card stagger">
-        <div class="result-illustration" id="res-ill"></div>
-        <div class="result-header-label" id="res-type-small"></div>
-        <h2 class="result-type" id="res-name"></h2>
-        <div class="result-summary" id="res-core"></div>
+      <h2 class="result-title stagger">🌟 診断完了 🌟</h2>
+
+      <div class="result-card stagger">
+        <h3 class="result-char-name" id="res-name">キャラクター名</h3>
+        <div class="result-sub-type" id="res-label">TYPE: --</div>
+
+        <img src="" alt="キャラクター画像" class="result-image" id="res-image">
+
+        <p class="result-summary" id="res-core">
+          キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！
+        </p>
       </div>
 
-      <button class="btn-pop stagger" onclick="location.reload()" style="margin-top: 10px;">最初からやり直す！</button>
+      <div class="share-buttons stagger">
+        <a href="#" class="share-btn share-x" id="share-x" target="_blank" rel="noopener">𝕏 でシェア</a>
+        <a href="#" class="share-btn share-line" id="share-line" target="_blank" rel="noopener">LINE で送る</a>
+      </div>
+
+      <button class="btn-pop stagger" onclick="location.reload()" style="margin-top: 30px; font-size: 1rem;">もう一度診断する</button>
     </div>
   </div>
 
@@ -590,20 +632,20 @@
 
     // 14分類の定義データ
     const typeDict = {
-        "C-C": { name: "突破隊長", core: "突破・達成・最短距離", hex: "#FF3D00", emoji: "🔥🏃‍♂️💨" },
-        "C-P": { name: "先導ランナー", core: "熱量で周囲を引っ張る", hex: "#FF9100", emoji: "📣🔥🏃‍♀️" },
-        "C-A": { name: "クール参謀", core: "合理的に勝ちへ向かう", hex: "#00B0FF", emoji: "😎📊♟️" },
-        "P-C": { name: "主役エンジン", core: "主役感＋突破力", hex: "#FFD600", emoji: "🌟👑🚀" },
-        "P-P": { name: "お祭り屋", core: "楽しい・盛り上げる・感情表現", hex: "#F50057", emoji: "🎉🥳🎶" },
-        "P-S": { name: "仲良しメーカー", core: "楽しい空気＋親しみ", hex: "#FF4081", emoji: "🤝😆✨" },
-        "S-P": { name: "おせっかい団長", core: "優しさ＋社交性", hex: "#FF80AB", emoji: "🥰🙌💖" },
-        "S-S": { name: "ほっとメーカー", core: "安心・受容・寄り添い", hex: "#00E676", emoji: "🍵😌🍀" },
-        "S-A": { name: "気配り職人", core: "静かな配慮・支援", hex: "#76FF03", emoji: "🪄🤫🌸" },
-        "A-C": { name: "ロジック隊長", core: "論理で成果へ向かう", hex: "#2979FF", emoji: "💻📈⚡" },
-        "A-S": { name: "空気観測員", core: "慎重＋配慮＋観察", hex: "#00E5FF", emoji: "🔭🌱👀" },
-        "A-A": { name: "深掘り職人", core: "分析・理解・探究", hex: "#651FFF", emoji: "🧐🔬📚" },
-        "SC融合": { name: "仲間守り隊", core: "優しさと突破力の両立", hex: "#00BFA5", emoji: "🛡️🦁💖" },
-        "AP融合": { name: "ひらめき博士", core: "感性×探究×発想", hex: "#D500F9", emoji: "💡🤯🎨" }
+        "C-C": { name: "フルスロットル", core: "突破・勝負・アクセル", hex: "#FF3D00", image: "14_character_pngs/01_C-C_フルスロットル.png" },
+        "C-P": { name: "ブースター", core: "熱量で引っ張る", hex: "#FF9100", image: "14_character_pngs/02_C-P_ブースター.png" },
+        "C-A": { name: "裏参謀", core: "冷静に勝つ", hex: "#00B0FF", image: "14_character_pngs/03_C-A_裏参謀.png" },
+        "P-P": { name: "ハイテンション", core: "楽しい・目立つ", hex: "#F50057", image: "14_character_pngs/04_P-P_ハイテンション.png" },
+        "P-C": { name: "熱血マン", core: "主役感＋突破", hex: "#FFD600", image: "14_character_pngs/05_P-C_熱血マン.png" },
+        "P-S": { name: "フレンドメーカー", core: "みんなで楽しく", hex: "#FF4081", image: "14_character_pngs/06_P-S_フレンドメーカー.png" },
+        "S-S": { name: "安心基地", core: "安心・癒し", hex: "#00E676", image: "14_character_pngs/07_S-S_安心基地.png" },
+        "S-P": { name: "応援団", core: "優しさ＋社交性", hex: "#FF80AB", image: "14_character_pngs/08_S-P_応援団.png" },
+        "S-A": { name: "黒子役", core: "静かな支援", hex: "#76FF03", image: "14_character_pngs/09_S-A_黒子役.png" },
+        "A-A": { name: "インテリ", core: "分析・探究", hex: "#651FFF", image: "14_character_pngs/10_A-A_インテリ.png" },
+        "A-C": { name: "司令塔", core: "論理で勝つ", hex: "#2979FF", image: "14_character_pngs/11_A-C_司令塔.png" },
+        "A-S": { name: "バランサー", core: "慎重＋配慮", hex: "#00E5FF", image: "14_character_pngs/12_A-S_バランサー.png" },
+        "SC融合": { name: "仲間番長", core: "優しさ＋闘志", hex: "#00BFA5", image: "14_character_pngs/13_S-C融合_仲間番長.png" },
+        "AP融合": { name: "妄想族", core: "感性×発想×探究", hex: "#D500F9", image: "14_character_pngs/14_A-P融合_妄想族.png" }
     };
 
     let currentQ = 0;
@@ -700,12 +742,20 @@
 
         const resData = typeDict[finalTypeKey];
         
-        // 結果画面の描画
+        // 結果画面の描画（判定ロジックやスコア内訳は表示しない）
         document.documentElement.style.setProperty('--theme-color', resData.hex);
-        document.getElementById('res-type-small').innerText = `TYPE: ${finalTypeKey}`;
         document.getElementById('res-name').innerText = resData.name;
-        document.getElementById('res-core').innerText = resData.core;
-        document.getElementById('res-ill').innerText = resData.emoji;
+        document.getElementById('res-label').innerText = `TYPE: ${finalTypeKey}`;
+        document.getElementById('res-core').innerHTML = `${resData.core}<br>キミの隠された才能が暴かれたぞ！<br>友達にもシェアして結果を見せ合おう！`;
+
+        const resultImage = document.getElementById('res-image');
+        resultImage.src = resData.image;
+        resultImage.alt = `${resData.name}のキャラクター画像`;
+
+        const shareText = `フォーユー診断の結果は「${resData.name}」でした！ #フォーユー診断`;
+        const shareUrl = location.href.split('#')[0];
+        document.getElementById('share-x').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+        document.getElementById('share-line').href = `https://line.me/R/msg/text/?${encodeURIComponent(`${shareText} ${shareUrl}`)}`;
 
         document.getElementById('question-screen').classList.remove('active');
         document.getElementById('result-screen').classList.add('active');
