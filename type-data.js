@@ -114,6 +114,7 @@ const typeDict = {
         image: "14_character_pngs/12_A-A.png"
     },
     "C-S": {
+        label: "C⇔S",
         name: "仲間番長",
         core: "仲間を守り抜く人",
         status: ["仲間を守る番長気質", "優しさを武器に本気で立ち向かう"],
@@ -123,6 +124,7 @@ const typeDict = {
         image: "14_character_pngs/13_S-C.png"
     },
     "P-A": {
+        label: "P⇔A",
         name: "妄想族",
         core: "発想を探究する人",
         status: ["ひらめき探究オタク", "妄想と分析で新世界をつくる"],

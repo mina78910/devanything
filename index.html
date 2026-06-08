@@ -926,7 +926,7 @@
         // 結果画面の描画（判定ロジックやスコア内訳は表示しない）
         document.documentElement.style.setProperty('--theme-color', resData.hex);
         document.getElementById('res-name').innerText = resData.name;
-        document.getElementById('res-label').innerText = `TYPE: ${finalTypeKey}`;
+        document.getElementById('res-label').innerText = `TYPE: ${resData.label || finalTypeKey}`;
         document.getElementById('res-core').innerHTML = `<span class="result-core-text">～${resData.core}～</span>`;
         document.getElementById('res-status-main').innerText = resData.status[0];
         document.getElementById('res-status-sub').innerText = resData.status[1];
