@@ -6,7 +6,7 @@ const typeOrder = [
 
 const typeDict = {
     "C-C": {
-        name: "フルスロットル",
+        name: "戦闘民族",
         core: "壁を突破する人",
         status: ["勝負こそ燃料", "全速力で壁をぶち抜く"],
         strengths: ["突破力", "勝負勘", "行動スピード"],
