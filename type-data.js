@@ -99,7 +99,7 @@ const typeDict = {
         name: "バランサー",
         core: "みんなが納得する形を作る人",
         status: ["整理して配慮", "静かに関係を保つ"],
-        strengths: ["静かな助言", "安定維持"],
+        strengths: ["静かな助言", "安定維持", "調整力"],
         weakness: "空気も理屈も気になる。全員が納得する答えを探して悩みがち。",
         hex: "#00E5FF",
         image: "14_character_pngs/11_A-S.png"
